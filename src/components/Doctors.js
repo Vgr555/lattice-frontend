@@ -1,28 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Doctor from "./Doctor";
+import axios from 'axios'
 
 export default function Doctors(){
-    const doctorData1 = {
-        id:1,
-        name:"Andrew",
-        city:"Delhi",
-        email:"andrew@gmail.com", 
-        phoneNumber:"9876543210", 
-        speciality:"Orthopedic"
-      };
-    const doctorData2 = {
-        id:2,
-        name:"Jessy",
-        city:"Delhi",
-        email:"jessy@gmail.com", 
-        phoneNumber:"9876543210", 
-        speciality:"Orthopedic"
-      };
-    const [doctors, setDoctors] = useState([doctorData1, doctorData2]);
+
+    const [doctors, setDoctors] = useState([]);
+    
+    const fetchDocsFromDB = () => {
+      axios.get('http://localhost:9090/doctor/doctors')
+            .then(
+              (response) => {
+                setDoctors(response.data);
+                console.log(response);
+              },
+              (error) => {
+                console.log('error : ' , error);
+              } 
+            );
+    };
+
+    useEffect(
+      () => {
+        fetchDocsFromDB();
+      }, []);
+
     return (
         <>
-            {doctors.length > 0 ? doctors.map((doc) => <Doctor doctor={doc} />) : "None"}
-        </>
-        
+            {doctors.length > 0 ? doctors.map((doc) => <Doctor key={doc.id} doctor={doc} />) : "None"}
+        </>   
     )
 }

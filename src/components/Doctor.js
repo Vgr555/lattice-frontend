@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody } from 'reactstrap'
+import { Card } from 'reactstrap'
 
 // export default function Doctor(props){
 //     return (

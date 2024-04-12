@@ -11,13 +11,14 @@ function App() {
     <div>
       <BrowserRouter>
         <Header />
-        <Container>
+        <Container style={{marginTop:'20px'}}>
             <Row>
               <Col md={4}>
                 <Menu />
               </Col>
               <Col md={8}>
                 <Routes>
+                  <Route path='/' element={<Home />} />
                   <Route path='/home' element={<Home />} />
                   <Route path='/doctors' element={<Doctors />} />
                   <Route path='/patients' element={<div>Patients will be added soon...</div>} />
